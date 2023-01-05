@@ -2,12 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const { databaseConnection } = require('../database/config');
 const userRouter = require('../routes/users.router');
+const userAuth = require('../routes/auth.router');
 
 
 
 class Server{
 
     userPath = '/api/v1/users';
+    authPath = '/api/v1/auth/';
 
     constructor() {
         this.app = express();
@@ -30,6 +32,7 @@ class Server{
     // Routes
     routes(){
         this.app.use( this.userPath , userRouter );
+        this.app.use( this.authPath , userAuth );
     }
 
     // Middlewares
