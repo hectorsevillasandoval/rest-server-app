@@ -14,7 +14,13 @@ router
         check('email', 'Email is required')
             .isEmail(),
         validateFields,
-    ],loginController.login);
+    ],loginController.login)
+
+    .post('/google', [
+        check('id_token', 'id_token is required')
+            .notEmpty(),
+        validateFields,
+    ], loginController.googleSignIn)
 
 
 module.exports = router;
