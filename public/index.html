@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Google Sign-in</title>
 </head>
 <body>
-    Index
+    <h1>Google Sign-in</h1>
+    <hr>
+    <div id="g_id_onload"
+         data-client_id="533476163285-f1qtd795g4fgd9loonjou0e9erkrcs99.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="sign_in_with"
+         data-shape="rectangular"
+         data-logo_alignment="left">
+      </div>
+    
+    
+      <script>
+        function handleCredentialResponse(response) {
+           // decodeJwtResponse() is a custom function defined by you
+           // to decode the credential response.
+           console.log("ID_TOKEN", response.credential);
+    
+        }
+      </script>
+    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </body>
 </html>
