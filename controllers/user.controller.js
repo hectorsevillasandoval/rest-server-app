@@ -58,7 +58,9 @@ const updateUser = async (req, res) => {
         data.password = bcrypt.hashSync( password, salt );
     }
 
-    const user = await User.findByIdAndUpdate( id, data );
+    const user = await User.findByIdAndUpdate( id, data, {
+        returnDocument: 'after'
+    } );
 
     res.json(user);
 };
@@ -71,7 +73,8 @@ const deleteUser = async (req, res) => {
     const user = await User.findByIdAndUpdate( id, { status: false } );
 
     res.status(200).json({
-        msg: `The user ${user.id} has been removed`
+        msg: `The user ${user.id} has been removed`,
+        user: req.user
     });
 };
 
