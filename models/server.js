@@ -3,13 +3,19 @@ const cors = require('cors');
 const { databaseConnection } = require('../database/config');
 const userRouter = require('../routes/users.router');
 const userAuth = require('../routes/auth.router');
-
-
+const categoriesRouter = require('../routes/categories.router');
+const productsRouter = require('../routes/products.router');
+const searchRouter = require('../routes/search.router');
 
 class Server{
 
-    userPath = '/api/v1/users';
-    authPath = '/api/v1/auth/';
+    paths = {
+        auth: '/api/v1/auth/',
+        categories: '/api/v1/categories',
+        products: '/api/v1/products',
+        search: '/api/v1/search',
+        user: '/api/v1/users',
+    };
 
     constructor() {
         this.app = express();
@@ -31,8 +37,11 @@ class Server{
 
     // Routes
     routes(){
-        this.app.use( this.userPath , userRouter );
-        this.app.use( this.authPath , userAuth );
+        this.app.use( this.paths.user , userRouter );
+        this.app.use( this.paths.auth , userAuth );
+        this.app.use( this.paths.categories , categoriesRouter );
+        this.app.use( this.paths.products , productsRouter );
+        this.app.use( this.paths.search , searchRouter );
     }
 
     // Middlewares
