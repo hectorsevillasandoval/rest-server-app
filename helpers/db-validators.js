@@ -42,6 +42,13 @@ const productExists = async ( name ) => {
     if( await Product.findOne( { name: name.toUpperCase() } ) ) throw new Error( 'Product already exists' );
 };
 
+const allowedCollections = ( collection = '', collections = [] ) => {
+    
+    if( !collections.includes( collection ) ) throw new Error( `Collection ${collection} not allowed` );
+
+    return true;
+};
+
 module.exports = {
     isRoleValid,
     emailExists,
@@ -49,4 +56,5 @@ module.exports = {
     categoryIdExists,
     productExists,
     productIdExists,
+    allowedCollections,
 };

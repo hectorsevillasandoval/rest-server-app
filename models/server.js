@@ -6,6 +6,8 @@ const userAuth = require('../routes/auth.router');
 const categoriesRouter = require('../routes/categories.router');
 const productsRouter = require('../routes/products.router');
 const searchRouter = require('../routes/search.router');
+const uploadsRouter = require('../routes/uploads.router');
+const fileUpload = require('express-fileupload');
 
 class Server{
 
@@ -14,6 +16,7 @@ class Server{
         categories: '/api/v1/categories',
         products: '/api/v1/products',
         search: '/api/v1/search',
+        uploads: '/api/v1/uploads',
         user: '/api/v1/users',
     };
 
@@ -42,6 +45,7 @@ class Server{
         this.app.use( this.paths.categories , categoriesRouter );
         this.app.use( this.paths.products , productsRouter );
         this.app.use( this.paths.search , searchRouter );
+        this.app.use( this.paths.uploads , uploadsRouter );
     }
 
     // Middlewares
@@ -51,6 +55,12 @@ class Server{
 
         // JSON Parsing
         this.app.use( express.json() );
+
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath: true,
+        }));
 
         this.app.use( express.static( 'public' ) );
     }
